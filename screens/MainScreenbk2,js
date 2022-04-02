@@ -1,0 +1,156 @@
+import React, { Component,useEffect, useLayoutEffect, useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+
+import firestore from '@react-native-firebase/firestore';
+
+
+// function onResult(QuerySnapshot) {
+//   console.log('Got Users collection result.');
+// }
+
+// function onError(error) {
+//   console.error(error);
+//}
+
+const MainScreen = ({navigation})=>{
+
+
+
+    const [storys, setStorys] = useState([]);
+
+  //   const [storys, setStorys] = useState([
+  //   {id:1,  name: "Storyfgdff of my life",status:"active", image:"https://bootdey.com/img/Content/avatar/avatar7.png"},
+  //   {id:2,  name: "Monk Who sold his ferrari",   status:"active", image:"https://bootdey.com/img/Content/avatar/avatar6.png"} ,
+  //   {id:3,  name: "Welcome to Boor",  status:"active", image:"https://bootdey.com/img/Content/avatar/avatar5.png"} ,
+  //   {id:4,  name: "Tree of my life",  status:"active", image:"https://bootdey.com/img/Content/avatar/avatar4.png"} ,
+  //   {id:5,  name: "Wings of fire",   status:"active", image:"https://bootdey.com/img/Content/avatar/avatar3.png"} ,
+  //   {id:6,  name: "Adarjan kadukal", status:"active", image:"https://bootdey.com/img/Content/avatar/avatar2.png"} ,
+  //   {id:8,  name: "En walkai,En karthika", status:"active", image:"https://bootdey.com/img/Content/avatar/avatar1.png"} ,
+  //   {id:9,  name: "Atu or kana kalam",    status:"active", image:"https://bootdey.com/img/Content/avatar/avatar4.png"} ,
+  //   {id:10, name: "Fermod Doe",  status:"active", image:"https://bootdey.com/img/Content/avatar/avatar7.png"} ,
+  // ])
+
+    useEffect(() => {
+
+
+    const usersCollection = firestore().collection('storycollection')
+    .onSnapshot((docs) =>{
+         let storys =[];
+        docs.forEach((doc)=>{
+          
+        storys.push({
+         id: doc.id,
+         name: doc.data().title,
+         description:doc.data().description,
+         author:doc.data().author,
+         //id: "1",
+        // name:"qwerty" ,
+         status:"author",
+         image:"https://bootdey.com/img/Content/avatar/avatar7.png",
+         })
+         setStorys(storys);
+         console.log(storys);
+      })
+
+    })   
+        
+	}, []);
+
+
+
+
+
+      renderItem = ({item}) => {
+        return (
+          <TouchableOpacity  
+           onPress={() => {
+          /* 1. Navigate to the Details route with params */
+            navigation.navigate('StoryView', {
+                itemId: item.id,
+                storyDescription:item.description,
+                name:item.name,
+                author:item.author,
+                otherParam: 'anything you want here',                
+              });
+             }}
+          >
+            <View style={styles.row}>
+              <View>
+                <View style={styles.nameContainer}>
+                  <Text style={styles.nameTxt} numberOfLines={2} ellipsizeMode="tail">{item.name}</Text>
+                  <Text style={styles.mblTxt}>Mobile</Text>
+                </View>
+                <View style={styles.msgContainer}>
+                  <Text style={styles.msgTxt}>{item.status}</Text>
+                </View>
+              </View>
+            </View>
+          </TouchableOpacity>
+        );
+      }
+
+
+      return (
+        <View style={{ flex: 1 }} >
+        <FlatList 
+          data={storys}
+          keyExtractor = {(item) => {
+            return item.id;
+          }}
+          renderItem={renderItem}/>
+      </View>
+	);
+
+};
+
+
+export default MainScreen;
+
+const styles = StyleSheet.create({
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderColor: '#DCDCDC',
+      backgroundColor: '#fff',
+      borderBottomWidth: 1,
+      padding: 10,
+    },
+    pic: {
+      borderRadius: 30,
+      width: 60,
+      height: 60,
+    },
+    nameContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: 280,
+    },
+    nameTxt: {
+      marginLeft: 15,
+      fontWeight: '600',
+      color: '#222',
+      fontSize: 18,
+      width:300,
+    },
+    mblTxt: {
+      fontWeight: '200',
+      color: '#777',
+      fontSize: 13,
+    },
+    msgContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    msgTxt: {
+      fontWeight: '400',
+      color: '#008B8B',
+      fontSize: 12,
+      marginLeft: 15,
+    },
+  });

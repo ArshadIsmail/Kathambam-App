@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Text, View, StyleSheet,TouchableOpacity,StatusBar,
-   Linking, SafeAreaView, ScrollView,Image } from 'react-native';
+   Linking, SafeAreaView, ScrollView,Image,ToastAndroid } from 'react-native';
 
 
    
@@ -109,7 +109,9 @@ const StoryThirdView = ({route,navigation})=> {
 
           <TouchableOpacity
           onPress={()=>{
-            alert('Dark Mode');
+            //alert('Dark Mode');
+            ToastAndroid.show('Dark Mode', ToastAndroid.SHORT)
+
           }}
           >
            <Image
@@ -123,7 +125,9 @@ const StoryThirdView = ({route,navigation})=> {
 
          <TouchableOpacity
           onPress={()=>{
-            alert('Text Size');
+            //alert('Text Size');
+            ToastAndroid.show('Text Size', ToastAndroid.SHORT)
+
           }}
           >
            <Image
@@ -136,7 +140,9 @@ const StoryThirdView = ({route,navigation})=> {
 
           <TouchableOpacity
           onPress={()=>{
-            alert('Love it');
+           // alert('Love it');
+            ToastAndroid.show('Love it', ToastAndroid.SHORT)
+
           }}
           >
            <Image
@@ -148,7 +154,9 @@ const StoryThirdView = ({route,navigation})=> {
           
           <TouchableOpacity
           onPress={()=>{
-            alert('Book Marked');
+           // alert('Book Marked');
+            ToastAndroid.show('Book Marked', ToastAndroid.SHORT)
+
           }}
           >
            <Image
@@ -160,7 +168,9 @@ const StoryThirdView = ({route,navigation})=> {
         
           <TouchableOpacity
           onPress={()=>{
-            alert('Profile');
+           // alert('Profile');
+            ToastAndroid.show('Profile', ToastAndroid.SHORT)
+
           }}
           >
           <Image

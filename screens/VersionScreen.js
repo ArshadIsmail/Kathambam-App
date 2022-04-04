@@ -7,6 +7,9 @@ import {
   FlatList,
   Image,
   TouchableWithoutFeedback,
+  TouchableHighlight,
+  Alert,
+  ScrollView,
   ToastAndroid,
 } from 'react-native';
 
@@ -24,7 +27,7 @@ import firestore from '@react-native-firebase/firestore';
 
 
 
-const MainScreen = ({navigation})=>{
+const VersionScreen = ({navigation})=>{
 
 
 
@@ -55,26 +58,25 @@ const MainScreen = ({navigation})=>{
     useEffect(() => {
 
 
-      navigation.setOptions({
-        headerRight: () => (
-         <View style={{flexDirection:'row'}}>            
-          <TouchableOpacity
-          onPress={()=>{
-            ToastAndroid.show('Profile', ToastAndroid.SHORT)
-
-          }}
-          >
-          <Image
+      // navigation.setOptions({
+      //   headerRight: () => (
+      //    <View style={{flexDirection:'row'}}>            
+      //     <TouchableOpacity
+      //     onPress={()=>{
+      //       alert('Profile');
+      //     }}
+      //     >
+      //     <Image
           
-          // onPress={() => setCount(c => c + 1)} 
-          //title="Update count" 
-          source={{uri:'https://img.icons8.com/external-neu-royyan-wijaya/452/external-people-neu-users-neu-royyan-wijaya-2.png'}}
-          style={{width:25,height:25,marginLeft:25,}}
-          /> 
-          </TouchableOpacity>  
-          </View>      
-        ),
-      });
+      //     // onPress={() => setCount(c => c + 1)} 
+      //     //title="Update count" 
+      //     source={{uri:'https://img.icons8.com/external-neu-royyan-wijaya/452/external-people-neu-users-neu-royyan-wijaya-2.png'}}
+      //     style={{width:25,height:25,marginLeft:25,}}
+      //     /> 
+      //     </TouchableOpacity>  
+      //     </View>      
+      //   ),
+      // });
 
 
 
@@ -135,7 +137,7 @@ const MainScreen = ({navigation})=>{
                   <Text style={styles.nameTxt} numberOfLines={2} ellipsizeMode="tail">{item.name}</Text>
                   <TouchableOpacity
                       onPress={()=>{
-                        ToastAndroid.show('Bookmark', ToastAndroid.SHORT)
+                        alert('Bookmark');
                       }}>
                   <Image
                     style={styles.mblTxt}
@@ -192,25 +194,29 @@ const MainScreen = ({navigation})=>{
 
 
       return (
-        <View style={{
-           flex: 1,
-           backgroundColor:'#fff',         
-            }} >
-            
-            
-        <FlatList 
-          data={storys}
-          keyExtractor = {(item) => {
-            return item.id;
-          }}
-          renderItem={renderItem}/>
-      </View>
+        <ScrollView style={styles.scrollContainer}>
+        <View style={styles.container}>
+          <Image style={styles.logo} source={{uri: 'https://img.icons8.com/fluency/452/general-warning-sign.png'}}/>
+          <Text style={styles.companyName}>Update !</Text>
+          <Text style={styles.slogan}>You are using an old version !</Text>
+          <View style={styles.descriptionContent}>
+            <Text style={styles.description}>
+              This version is no more supported.Please update the App !
+            </Text>
+          </View>
+          <TouchableHighlight style={[styles.buttonContainer, styles.sendButton]} onPress={ ()=>{
+                         ToastAndroid.show('Opening play store', ToastAndroid.SHORT)
+                      }}>
+            <Text style={styles.buttonText}>Play Store  </Text>
+          </TouchableHighlight>
+        </View>
+      </ScrollView>
 	);
 
 };
 
 
-export default MainScreen;
+export default VersionScreen;
 
 const styles = StyleSheet.create({
     row: {
@@ -301,4 +307,53 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
+    
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      backgroundColor: '#EE82EE',
+      height:1000,
+    },
+    logo:{
+      width:100,
+      height:100,
+      justifyContent: 'center',
+      marginBottom:10,
+      marginTop:30,
+    },
+    companyName: {
+      fontSize:32,
+      fontWeight: '600',
+      color: '#FFFFFF',
+    },
+    slogan:{
+      fontSize:18,
+      fontWeight: '600',
+      color: '#228B22',
+      marginTop:10,
+    },
+    descriptionContent:{
+      padding:30
+    },
+    description:{
+      fontSize:18,
+      textAlign:'center',
+      marginTop:10,
+      color: '#FFFFFF',
+    },
+    buttonContainer: {
+      height:45,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom:20,
+      width:100,
+      borderRadius:30,
+    },
+    sendButton: {
+      backgroundColor: "#FFFFFF",
+    },
+    buttonText: {
+      color: '#EE82EE',
+    }
   });

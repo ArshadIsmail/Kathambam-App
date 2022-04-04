@@ -6,17 +6,22 @@
  * @flow strict-local
  */
 
- import React from 'react';
+ import React ,{useEffect ,useState} from 'react';
  import {
    Text,
    View,
  } from 'react-native';
+
+ import firestore from '@react-native-firebase/firestore';
+
  import HomeScreen from './screens/HomeScreen';
  import MainScreen from './screens/MainScreen';
  import StoryViewScreen from "./screens/StoryViewScreen";
  import StorySecondView from './screens/StorySecondView';
  import StoryThirdView from './screens/StoryThirdView';
+ import VersionScreen from './screens/VersionScreen';
  
+
  import { NavigationContainer } from '@react-navigation/native';
  import { createNativeStackNavigator } from '@react-navigation/native-stack';
  
@@ -24,6 +29,44 @@
  
  
  export default function App() {
+
+  const [version, setVersion] = useState(true);
+  var currentVersion = 1;
+
+
+  useEffect(() => {
+
+
+  console.log('app use effect');
+
+  const versionCollection = firestore().collection('versioncontrolling')
+   .onSnapshot((docs) =>{
+       // let storys =[];
+      docs.forEach((doc)=>{
+        var supported_minimum_version =doc.data().supported_minimum_version;
+        setVersion(supported_minimum_version < currentVersion);
+        
+      // storys.push({
+      //  id: doc.id,
+      //  name: doc.data().title,
+      //  description:doc.data().description,
+      //  author:doc.data().author,
+      //  //id: "1",
+      // // name:"qwerty" ,
+      //  status:doc.data().author,
+      //  image:"https://bootdey.com/img/Content/avatar/avatar7.png",
+      //  })
+       //setStorys(storys);
+       console.log(version);
+    })
+
+  })   
+      
+}, []);
+
+
+
+
    return (
      <NavigationContainer>
      <Stack.Navigator>
@@ -32,7 +75,8 @@
          component={HomeScreen}
          options={{ title: 'Welcome' }}
        />  */}
-       <Stack.Screen
+       {version ? (
+        <Stack.Screen
          name="Main"
          component={MainScreen}
          options={{ title: 'Story Lists' ,
@@ -47,6 +91,26 @@
             },
          }}
        />
+      ) : (
+        <Stack.Screen
+         name="Version"
+         component={VersionScreen}
+         options={{ title: 'Version Update' ,
+         headerShown: true,
+         headerStyle: {
+              //backgroundColor: '#EEEEEE',
+            },
+            //headerTintColor: '#fff',
+            headerTitleStyle: {
+              //fontFamily:'sans-serif',
+             //fontWeight: 'bold',
+            },
+         }}
+       />
+      )}
+
+
+       
        <Stack.Screen
          name="StoryView"
          component={StoryViewScreen}

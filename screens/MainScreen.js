@@ -6,21 +6,11 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
-  TouchableWithoutFeedback,
   ToastAndroid,
 } from 'react-native';
 
 import firestore from '@react-native-firebase/firestore';
-//import { createIconSet } from 'react-native-vector-icons';
 
-
-// function onResult(QuerySnapshot) {
-//   console.log('Got Users collection result.');
-// }
-
-// function onError(error) {
-//   console.error(error);
-//}
 
 
 
@@ -30,25 +20,9 @@ const MainScreen = ({navigation})=>{
 
     const [storys, setStorys] = useState([]);
 
-    const [screenNo, setScreenNo] = useState(true);
-
-    const [screenNoTwo, setscreenNoTwo] = useState(false);
+   
 
 
-
-   // let screenno = 2;
-
-  //   const [storys, setStorys] = useState([
-  //   {id:1,  name: "Storyfgdff of my life",status:"active", image:"https://bootdey.com/img/Content/avatar/avatar7.png"},
-  //   {id:2,  name: "Monk Who sold his ferrari",   status:"active", image:"https://bootdey.com/img/Content/avatar/avatar6.png"} ,
-  //   {id:3,  name: "Welcome to Boor",  status:"active", image:"https://bootdey.com/img/Content/avatar/avatar5.png"} ,
-  //   {id:4,  name: "Tree of my life",  status:"active", image:"https://bootdey.com/img/Content/avatar/avatar4.png"} ,
-  //   {id:5,  name: "Wings of fire",   status:"active", image:"https://bootdey.com/img/Content/avatar/avatar3.png"} ,
-  //   {id:6,  name: "Adarjan kadukal", status:"active", image:"https://bootdey.com/img/Content/avatar/avatar2.png"} ,
-  //   {id:8,  name: "En walkai,En karthika", status:"active", image:"https://bootdey.com/img/Content/avatar/avatar1.png"} ,
-  //   {id:9,  name: "Atu or kana kalam",    status:"active", image:"https://bootdey.com/img/Content/avatar/avatar4.png"} ,
-  //   {id:10, name: "Fermod Doe",  status:"active", image:"https://bootdey.com/img/Content/avatar/avatar7.png"} ,
-  // ])
 
  
 
@@ -66,8 +40,7 @@ const MainScreen = ({navigation})=>{
           >
           <Image
           
-          // onPress={() => setCount(c => c + 1)} 
-          //title="Update count" 
+       
           source={{uri:'https://img.icons8.com/external-neu-royyan-wijaya/452/external-people-neu-users-neu-royyan-wijaya-2.png'}}
           style={{width:25,height:25,marginLeft:25,}}
           /> 
@@ -90,13 +63,11 @@ const MainScreen = ({navigation})=>{
          name: doc.data().title,
          description:doc.data().description,
          author:doc.data().author,
-         //id: "1",
-        // name:"qwerty" ,
+         
          status:doc.data().author,
          image:"https://bootdey.com/img/Content/avatar/avatar7.png",
          })
          setStorys(storys);
-         console.log(storys);
       })
 
     })   
@@ -157,30 +128,7 @@ const MainScreen = ({navigation})=>{
                   <Text style={styles.countText}> - </Text>
                 </View>
                 <View style={{ flexDirection: 'row', marginTop:8 ,marginLeft:10,}}>
-                    {/* <View style={{ justifyContent: 'center', alignItems: 'center',
-                        padding: 8,
-                        marginRight:8,
-                       backgroundColor:'#EFEFF0',
-                        height: 30,
-                         borderRadius: 12}}>
-                       <Text style={{ color: '#424BAF',fontSize:10, }}>Adventure</Text>
-                    </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center',
-                        padding: 8,
-                        marginRight:8,
-                       backgroundColor:'#EFEFF0',
-                       height: 30,
-                         borderRadius: 12}}>
-                       <Text style={{ color: '#424BAF',fontSize:10}}>Horror</Text>
-                    </View>
-                    <View style={{ justifyContent: 'center', alignItems: 'center',
-                        padding: 8,
-                        marginRight:8,
-                       backgroundColor:'#EFEFF0',
-                       height: 30,
-                         borderRadius: 12}}>
-                       <Text style={{ color: '#424BAF',fontSize:10 }}>Family</Text>
-                    </View> */}
+                
                   </View>
                   
                
@@ -216,28 +164,21 @@ const styles = StyleSheet.create({
     row: {
       flexDirection: 'row',
       alignItems: 'center',
-      //borderColor: '#DCDCDC',
       backgroundColor:'#fffF',
-      //borderBottomWidth:1,
       padding:0,
       borderRadius:15,
       marginTop:15,
       marginLeft:15,
       marginRight:15,
-      //elevation:1,
-      //width:100,
-      //height:0,
+    
     },
     pic: {
-      //borderRadius:30,
-     // width: 60,
-     // height: 60,
+      
     },
     nameContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       width: 280,
-     // marginTop:1,
 
     },
     nameTxt: {
@@ -246,16 +187,13 @@ const styles = StyleSheet.create({
       color: '#222',
       fontSize: 14,
       width:200,
-     // fontFamily: "Coiny",
 
     },
     mblTxt: {
       fontWeight: '200',
       color: '#777',
-      //fontSize:10,
       width:22,
       height:22,
-      //paddingLeft:100
       color:'black',
       marginTop:5,
     },
@@ -276,8 +214,7 @@ const styles = StyleSheet.create({
 
     },
     countText:{
-      //width:15,
-      //height:15,
+      
       fontSize: 11, 
       marginLeft:1,
        marginTop:7,

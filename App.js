@@ -26,7 +26,7 @@
  export default function App() {
 
   const [version, setVersion] = useState(true);
-  var currentVersion = -1;
+  var currentVersion = 1;
   
 
 

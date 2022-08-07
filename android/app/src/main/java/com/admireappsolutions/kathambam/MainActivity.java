@@ -1,4 +1,4 @@
-package com.kathambam;
+package com.admireappsolutions.kathambam;
 
 import com.facebook.react.ReactActivity;
 
